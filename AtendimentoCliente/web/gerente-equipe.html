@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ATENDIMENTOS</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/css/uikit.min.css"/>
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="universal/js/jquery.js"></script>
+</head>
+<body>
+<header>
+    <div id="logo" class="img left"><img src="img/logo.png"></div>
+    <div id="info-cabecalho" class="left">
+        <div id="boas-vindas" class="block">Bem vindo, <span>Carlos</span></div> <!--buscar no bd e preencher o nome do gerente-->
+        <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
+    </div>
+    <nav class="right">
+        <ul>
+            <!-- direcione para as servlets adequadas-->
+            <li id="atendimentos"><a href="gerente-atendimentos.html">ATENDIMENTOS</a></li>
+            <li id="equipe" class="ativo"><a href="gerente-equipe.html">EQUIPE</a></li>
+            <li id="relatorios"><a href="gerente-relatorios.html">RELATÓRIOS</a></li>
+            <li><a href="index.html">SAIR</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="foto-menu" class="right img"><img src="img/users.png"></div>
+<h1 class="left titulo-atend">EQUIPE</h1>
+
+<form action="" method="post">
+<div id="equipe-select" class="block uk-margin">
+    <label class="uk-form-label" for="membro-selecionado">Selecione membro da equipe</label>
+    <div class="uk-form-controls">
+        <select class="left uk-select" id="membro-selecionado">
+            <option>EMAIL</option><!--carregar os emails de toda equipe cadastrada-->
+            <option>carlos@email.com</option>
+            <option>fernanda@email.com</option>
+        </select>
+    </div>
+    <button id="editar-membro" class="equipe-icon left" uk-icon="icon: cog" onclick="editarMembro();"></button>
+    <a id="excluir-membro" class="equipe-icon left" uk-icon="icon: trash" href="" onclick="confirmExcluir(event);"></a>
+    <a href="gerente-equipe-novo.html" id="btn-novo-membro" class="block uk-button uk-button-default">NOVO</a>
+</div>
+</form>
+
+<link rel="stylesheet" href="universal/css/menu.css">
+<link rel="stylesheet" href="universal/css/reset.css">
+<link rel="stylesheet" href="css/gerente.css">
+<script type="text/javascript" src="js/gerente.js"></script>
+</body>
+</html>

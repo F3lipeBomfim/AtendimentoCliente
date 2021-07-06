@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>ATENDIMENTOS</title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/css/uikit.min.css"/>
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="universal/js/jquery.js"></script>
+    <script type="text/javascript" src="universal/js/jquery.mask.js"></script>
+</head>
+<body>
+<header>
+    <div id="logo" class="img left"><img src="img/logo.png"></div>
+    <div id="info-cabecalho" class="left">
+        <div id="boas-vindas" class="block">Bem vindo, <span>Carlos</span></div> <!--buscar no bd e preencher o nome do gerente-->
+        <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
+    </div>
+    <nav class="right">
+        <ul>
+            <!-- direcione para as servlets adequadas-->
+            <li id="atendimentos"><a href="gerente-atendimentos.html">ATENDIMENTOS</a></li>
+            <li id="equipe" class="ativo"><a href="gerente-equipe.html">EQUIPE</a></li>
+            <li id="relatorios"><a href="gerente-relatorios.html">RELATÓRIOS</a></li>
+            <li><a href="index.html">SAIR</a></li>
+        </ul>
+    </nav>
+</header>
+<div id="foto-menu" class="right img"><img src="img/users.png"></div>
+<h1 class="left titulo-atend">EDITAR MEMBRO</h1>
+<!--preencher os dados do membro vindo do bd nos correspondentes campos. Direcionar a url do form com o id para a servet correta-->
+<form class="block" action="gerente-equipe.html?id=1" method="post" onsubmit="return validaSenha();">
+    <fieldset class="left-fieldset">
+        <h2 class="subtopico">Dados pessoais</h2>
+        <div class="large-input uk-margin">
+            <label class="uk-form-label" for="nome">Nome completo</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="nome" name="nome" value="" type="text" placeholder="" required>
+            </div>
+        </div>
+        <div class="medium-input uk-margin">
+            <label class="uk-form-label" for="email">Email</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="email" name="nome" value="" type="email" placeholder="" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="cpf">CPF</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="cpf" name="cpf" value="" type="text" placeholder="000.000.000-00" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="tel">Telefone</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="tel" name="tel" value="" type="text" placeholder="(00)0000-0000" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-radio" id="fixo" type="radio" name="radio2" onclick="setMask('#tel','(00)0000-0000')" checked>Fixo</label>
+            <label><input class="uk-radio" type="radio" value="" name="radio2" onclick="setMask('#tel','(00)00000-0000')">Celular</label>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="senha">Senha</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="senha" name="senha" value="" type="password" placeholder="" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="pwd">Confirmação da senha</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="pwd" value="" type="password" placeholder="" required>
+            </div>
+        </div>
+        <div id="msg-erro"></div>
+    </fieldset>
+    <fieldset class="right-fieldset">
+        <h2 class="subtopico">Endereço</h2>
+        <div class="large-input uk-margin">
+            <label class="uk-form-label" for="rua">Lugadouro</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="rua" value="" name="rua" type="text" placeholder="" required>
+            </div>
+        </div>
+        <div class="shorter-input uk-margin">
+            <label class="uk-form-label" for="num">Apto/número</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="num" value="" name="num" type="text" placeholder="" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="complemento">Complemento</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="complemento" value="" name="complemento" type="text" placeholder="" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="cep">CEP</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="cep" name="cep" value="" type="text" placeholder="00.000-000" required>
+            </div>
+        </div>
+        <div class="shorter-input uk-margin">
+            <label class="uk-form-label" for="uf">UF</label>
+            <select class="nome uk-select" id="uf" name="uf" required>
+                <option value="">Estado</option>
+                <option value="ac">AC</option>
+                <option value="al">AL</option>
+                <option value="ap">AP</option>
+                <option value="am">AM</option>
+                <option value="ba">BA</option>
+                <option value="ce">CE</option>
+                <option value="df">DF</option>
+                <option value="es">ES</option>
+                <option value="go">GO</option>
+                <option value="ma">MA</option>
+                <option value="mt">MT</option>
+                <option value="ms">MS</option>
+                <option value="mg">MG</option>
+                <option value="pa">PA</option>
+                <option value="pb">PB</option>
+                <option value="pr">PR</option>
+                <option value="pe">PE</option>
+                <option value="pi">PI</option>
+                <option value="rj">RJ</option>
+                <option value="rn">RN</option>
+                <option value="rs">RS</option>
+                <option value="ro">RO</option>
+                <option value="rr">RR</option>
+                <option value="sc">SC</option>
+                <option value="sp">SP</option>
+                <option value="se">SE</option>
+                <option value="to">TO</option>
+            </select>
+        </div>
+        <div class="medium-input uk-margin">
+            <label class="uk-form-label" for="cidade">Cidade</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" value="" id="cidade" name="cidade" type="text" placeholder="" required>
+            </div>
+        </div>
+        <div class="medium-input uk-margin">
+            <label class="uk-form-label" for="bairro">Bairro</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="bairro" name="bairro" value="" type="text" placeholder="" required>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="permissao" class="left">
+        <div class="large-input uk-margin uk-grid-small uk-child-width-auto uk-grid">
+            <label class="left"><input class="uk-radio" type="radio" value="" name="permissao" checked>Operador</label>
+            <label class="left"><input class="uk-radio" type="radio" value="" name="permissao">Gerente</label>
+        </div>
+    </fieldset>
+
+    <a id="cancelar" href="gerente-equipe.html" class="uk-button uk-button-default uk-button-large right">CANCELAR</a>
+    <button type="submit" class="uk-button uk-button-primary uk-button-large right">CADASTRAR</button>
+</form>
+
+<link rel="stylesheet" href="universal/css/menu.css">
+<link rel="stylesheet" href="universal/css/reset.css">
+<link rel="stylesheet" href="css/gerente.css">
+<script type="text/javascript" src="js/gerente.js"></script>
+</body>
+</html>

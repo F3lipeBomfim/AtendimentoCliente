@@ -1,0 +1,99 @@
+
+/*******************MEUS ATENDIMENTOS**************/
+
+.comentario{
+    width: 96% !important;
+    border: 4px #888 double;
+    margin-left: 2%;
+    height: 80px;
+    margin-top: 5px;
+}
+.topico{
+    font-size: 20px;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+    color: black;
+    margin: 5px 10px;
+}
+.icones{
+    color: blue;
+    margin: 5px 10px;
+    width: 80px;
+}
+.icone{
+    width: 30px;
+    margin: 0 5px;
+}
+.trash{
+    color: red !important;
+}
+.tipo{
+    width: 200px;
+}
+.rotulo-dir{
+    width: 20% !important;
+    text-align: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+.data{
+    margin-bottom: 5px;
+}
+.aberto{
+    border-color: yellow !important;
+}
+
+/**********MEUS ATENDIMENTOS - DETALHES***********/
+
+.detalhe{
+    width: 96%;
+    margin: 10px 2%;
+}
+.corpo-detalhe,.resp-texto{
+    font-size: 18px;
+}
+.prod{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 30px auto;
+}
+.detalhes-final,.resposta-final{
+    text-align: right;
+    font-weight: 500;
+    font-size: 18px;
+}
+.voltar{
+    width: 150px;
+    background-color: #ccc;
+    margin: 20px 2%;
+    font-size: 20px;
+}
+
+/**************NOVO ATENDIMENTO**************/
+
+#form-novo-atend{
+    width: 96%;
+    margin: 20px 2%;
+}
+#titulo-novo-atend,#desc-novo-atend{
+    margin: 10px 0;
+}
+#desc-novo-atend{
+    height: 100px;
+    resize: none;
+}
+#atend-prod-select{
+    margin-top: 10px;
+}
+#btn-atend-enviar{
+    width: 150px;
+    margin-top: 30px;
+}
+.msg-erro{
+    text-align: center;
+    color: red;
+    font-weight: bold;
+}
+.error{
+    border-color: red;
+}
