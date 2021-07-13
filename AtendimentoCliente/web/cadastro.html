@@ -10,6 +10,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit-icons.min.js"></script>
     <script type="text/javascript" src="universal/js/jquery.js"></script>
     <script type="text/javascript" src="universal/js/jquery.mask.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <body>
 <header>
@@ -21,9 +23,9 @@
         <div id="login-key" class="right img"><a href="index.html"><img src="img/signin.png"></a></div>
     </nav>
 </header>
-<h1 class="block titulo">CADASTRO DE USUARIO</h1>
+<h1 class="block titulo">CADASTRO DE USUÁRIO</h1>
 
-<form class="block" action="index.html" method="post" onsubmit="return validaSenha();">
+<form class="block" action="CadastrarUsuario" method="post" onsubmit="return validaSenha();">
     <fieldset class="left-fieldset">
         <h2 class="subtopico">Dados pessoais</h2>
         <div class="large-input uk-margin">
@@ -35,7 +37,7 @@
         <div class="medium-input uk-margin">
             <label class="uk-form-label" for="email">Email</label>
             <div class="nome uk-form-controls">
-                <input class="uk-input" id="email" name="nome" type="email" placeholder="" required>
+                <input class="uk-input" id="email" name="email" type="email" placeholder="" required>
             </div>
         </div>
         <div class="short-input uk-margin">
@@ -70,13 +72,19 @@
     </fieldset>
     <fieldset class="right-fieldset">
         <h2 class="subtopico">Endereço</h2>
-        <div class="large-input uk-margin">
-            <label class="uk-form-label" for="rua">Lugadouro</label>
+        <div class="short-input uk-margin">
+            <label class="uk-form-label" for="cep">CEP</label>
+            <div class="nome uk-form-controls">
+                <input class="uk-input" id="cep" onblur="BuscarCep(this.value)" name="cep" type="text" placeholder="00.000-000" required>
+            </div>
+        </div>
+        <div class="short-input uk-margin" style="width:53% !important">
+            <label class="uk-form-label" for="rua">Logradouro</label>
             <div class="nome uk-form-controls">
                 <input class="uk-input" id="rua" name="rua" type="text" placeholder="" required>
             </div>
         </div>
-        <div class="shorter-input uk-margin">
+        <div class="short-input uk-margin">
             <label class="uk-form-label" for="num">Apto/número</label>
             <div class="nome uk-form-controls">
                 <input class="uk-input" id="num" name="num" type="text" placeholder="" required>
@@ -88,50 +96,16 @@
                 <input class="uk-input" id="complemento" name="complemento" type="text" placeholder="" required>
             </div>
         </div>
-        <div class="short-input uk-margin">
-            <label class="uk-form-label" for="cep">CEP</label>
-            <div class="nome uk-form-controls">
-                <input class="uk-input" id="cep" name="cep" type="text" placeholder="00.000-000" required>
-            </div>
-        </div>
+      
         <div class="shorter-input uk-margin">
             <label class="uk-form-label" for="uf">UF</label>
-            <select class="nome uk-select" id="uf" name="uf" required>
-                <option value="">Estado</option>
-                <option value="ac">AC</option>
-                <option value="al">AL</option>
-                <option value="ap">AP</option>
-                <option value="am">AM</option>
-                <option value="ba">BA</option>
-                <option value="ce">CE</option>
-                <option value="df">DF</option>
-                <option value="es">ES</option>
-                <option value="go">GO</option>
-                <option value="ma">MA</option>
-                <option value="mt">MT</option>
-                <option value="ms">MS</option>
-                <option value="mg">MG</option>
-                <option value="pa">PA</option>
-                <option value="pb">PB</option>
-                <option value="pr">PR</option>
-                <option value="pe">PE</option>
-                <option value="pi">PI</option>
-                <option value="rj">RJ</option>
-                <option value="rn">RN</option>
-                <option value="rs">RS</option>
-                <option value="ro">RO</option>
-                <option value="rr">RR</option>
-                <option value="sc">SC</option>
-                <option value="sp">SP</option>
-                <option value="se">SE</option>
-                <option value="to">TO</option>
+            <select class="nome uk-select"  placeholder="Estados" name="id_estado" id="estado">
             </select>
         </div>
         <div class="medium-input uk-margin">
             <label class="uk-form-label" for="cidade">Cidade</label>
-            <div class="nome uk-form-controls">
-                <input class="uk-input" id="cidade" name="cidade" type="text" placeholder="" required>
-            </div>
+            <select class="nome uk-select"  placeholder="Estados" name="id_cidade" id="cidade">
+            </select>
         </div>
         <div class="medium-input uk-margin">
             <label class="uk-form-label" for="bairro">Bairro</label>
