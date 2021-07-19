@@ -6,7 +6,6 @@
 package Usuario;
 
 import java.io.Serializable;
-
 /**
  *
  * @author Felipe Bomfim    
@@ -27,6 +26,16 @@ public class Usuario implements Serializable{
     private int id_cidade;
     private int numero;
     private int id_estado;
+    private int tipo_tel;
+
+    public int getTipo_tel() {
+        return tipo_tel;
+    }
+
+    public void setTipo_tel(int tipo_tel) {
+        this.tipo_tel = tipo_tel;
+    }
+
 
 
     public int getPerfil() {

@@ -1,8 +1,44 @@
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
 $(document).ready(function () {
     $('#tel').mask('(00)0000-0000');
     $('#cpf').mask('000.000.000-00');
     $('#cep').mask('00.000-000');
- 
+    
+    if($('#cpf').val() != ''){
+        $('#cpf').attr("disabled", "disabled");
+    }
+    if($('#email').val() != ''){
+       $('#email').attr("disabled", "disabled");
+    }
+    if($('#id_estado_hidden').val() != '' && $('#id_estado_hidden').val() != 0){
+        var id_estado = $('#id_estado_hidden').val();
+        setTimeout(function(){
+            $('#estado').val(parseInt(id_estado)).attr('selected', 'selected');
+                getCidades();
+            setTimeout(function(){
+                var id_cidade = $('#id_cidade_hidden').val();
+                $('#cidade').val(parseInt(id_cidade)).attr("selected", "selected");
+            }, 300);
+        }, 300);
+    }
+
     getEstados();
 });
 
@@ -12,24 +48,24 @@ $("#estado" ).change(function() {
 function getEstados(){
     var estadoId = $("#estado").val();
     var url = "AJAXServlet?action=getEstados";
-        $.ajax({
-            url : url, 
-            data : {
-                estadoId : estadoId
-            }, 
-            dataType : 'json',
-            success : function(data) {
-                $("#estado").empty();
-                $("#estado").append('  <option value="" selected disabled hidden>Escolha um estado</option>');
-                $.each(data, function(i, obj) {
-                    $("#estado").append('<option data-uf=' + obj.uf + ' value=' + obj.id + '>' + obj.nome + '</option>');
-                });
-            },
-            error : function(request, textStatus, errorThrown) {
-                alert(request.status + ', Error: ' + request.statusText);
-            }
-        });
- }
+    $.ajax({
+        url : url, 
+        data : {
+            estadoId : estadoId
+        }, 
+        dataType : 'json',
+        success : function(data) {
+            $("#estado").empty();
+            $("#estado").append('  <option value="" selected disabled hidden>Escolha um estado</option>');
+            $.each(data, function(i, obj) {
+                $("#estado").append('<option data-uf=' + obj.uf + ' value=' + obj.id + '>' + obj.nome + '</option>');
+            });
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(request.status + ', Error: ' + request.statusText);
+        }
+    });
+}
 function getCidades(){
     var estadoId = $("#estado").val();
     var url = "AJAXServlet?action=getCidades";
@@ -71,8 +107,6 @@ function BuscarCep(cep){
         cep_final = cep_final.replace(".", "");   
     var url = 'https://viacep.com.br/ws/'+ cep_final +'/json/';
 
- 
-        
     $.getJSON(url, function(result) {
         if(result.uf != ""){
             var estado = $('#uf option:contains("'+result.uf+'")').val();

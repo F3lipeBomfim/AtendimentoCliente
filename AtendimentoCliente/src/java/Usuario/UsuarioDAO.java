@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import ConnectionFactory.ConnectionFactory;
+import Produtos.Produtos;
+import java.sql.Statement;
 
 /**
  *
@@ -25,21 +27,22 @@ public class UsuarioDAO {
     public UsuarioDAO() {
         connection = ConnectionFactory.getConnection();
     }
-     public void consulta(Usuario Usuario){
+    public void Logar(Usuario Usuario){
 
        try{
         Connection con = connection;
-        String sql = "SELECT id_usuario, nome_usuario FROM tb_usuario WHERE login_usuario = ? AND senha_usuario = ? LIMIT 1";
+        String sql = "SELECT id, nome, perfil FROM usuarios WHERE email = ? AND senha = ? AND excluido IS NULl LIMIT 1";
+       
         PreparedStatement ps;
-        
         ps = con.prepareStatement(sql);
-        ps.setString(1, Usuario.getNome());
+        ps.setString(1, Usuario.getEmail());
         ps.setString(2, Usuario.getSenha());
 
         ResultSet resultSet = ps.executeQuery();
           while(resultSet.next()){ 
-             Usuario.setId(resultSet.getInt("id_usuario"));
-             Usuario.setNome(resultSet.getString("nome_usuario"));
+            Usuario.setId(resultSet.getInt("id"));
+            Usuario.setNome(resultSet.getString("nome"));
+            Usuario.setPerfil(resultSet.getInt("perfil"));
           }
           ps.close();
        }
@@ -48,38 +51,45 @@ public class UsuarioDAO {
        }
     }
      
-    public List<Usuario> getAllUsers() {
-    List<Usuario> listaDeUsuario = new ArrayList<Usuario>();
-    try {
-        Connection con = connection;
-        String sql = "select * from tb_usuario";
-        PreparedStatement ps;
-        ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
+    public Usuario getUsuarioById(int idUsuario) {
+        Usuario usuario = new Usuario();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT usuarios.* FROM usuarios WHERE id = ?");
+            preparedStatement.setInt(1, idUsuario);
+            ResultSet rs = preparedStatement.executeQuery();
 
-        while (rs.next()) {
-            Usuario usuario = new Usuario();
-            usuario.setId(rs.getInt("id_usuario"));
-            usuario.setNome(rs.getString("nome_usuario"));
-            usuario.setEmail(rs.getString("login_usuario"));
-            usuario.setSenha(rs.getString("senha_usuario"));
-
-            listaDeUsuario.add(usuario);
+            if (rs.next()) {
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setCpf(rs.getString("cpf"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setTelefone(rs.getString("telefone"));
+                usuario.setCep(rs.getString("cep"));
+                usuario.setLogradouro(rs.getString("cep"));
+                usuario.setNumero(rs.getInt("numero"));
+                usuario.setComplemento(rs.getString("complemento"));
+                usuario.setId_estado(rs.getInt("id_estado"));
+                usuario.setId_cidade(rs.getInt("id_cidade"));
+                usuario.setBairro(rs.getString("bairro"));
+                usuario.setPerfil(rs.getInt("perfil"));
+                usuario.setTipo_tel(rs.getInt("tipo_tel"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return listaDeUsuario;
+
+        return usuario;
     }
     
     public void addUser(Usuario Usuario) {
       try {
         Connection con = connection;
+        
         String sql = "INSERT INTO usuarios(nome, email, senha, cpf, telefone, cep, logradouro, numero, complemento,"
-                + " perfil, id_estado, id_cidade, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + " perfil, id_estado, id_cidade, tipo_tel, bairro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
           // Parameters start with 1
           PreparedStatement ps;
-          ps = con.prepareStatement(sql);
+          ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
           ps.setString(1, Usuario.getNome());
           ps.setString(2, Usuario.getEmail());
@@ -93,13 +103,86 @@ public class UsuarioDAO {
           ps.setInt(10, Usuario.getPerfil());
           ps.setInt(11, Usuario.getId_estado());
           ps.setInt(12, Usuario.getId_cidade());
-          ps.setString(13, Usuario.getBairro());
-
+          ps.setInt(13, Usuario.getTipo_tel());
+          ps.setString(14, Usuario.getBairro());
           ps.executeUpdate();
+          java.sql.ResultSet generatedKeys = ps.getGeneratedKeys();
+          if ( generatedKeys.next() ) {
+            Usuario.setId(generatedKeys.getInt(1));
+          }
 
       } catch (SQLException e) {
           e.printStackTrace();
       }
+    }
+    public List<Usuario> getAllEquipe(int userId) {
+        List<Usuario> ListaDeUsuarios = new ArrayList<Usuario>();
+        try {
+            Connection con = connection;
+            String sql = "SELECT * FROM usuarios WHERE perfil IN (2,3) AND usuarios.id != ? AND excluido IS NULL";
+            PreparedStatement ps;
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setId(rs.getInt("id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+                ListaDeUsuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ListaDeUsuarios;
+    } 
+    
+    public void alterar(Usuario usuario) {
+        try {
+            
+            String sql = "UPDATE usuarios SET nome = ?, telefone = ?, "
+                    + " cep = ?, logradouro = ?, complemento = ?, numero = ?, perfil = ?, tipo_tel = ?, id_estado = ?, id_cidade = ?, bairro = ?";
+            if (usuario.getSenha()!= null) {
+                sql = sql + " , senha = ?";
+            }
+            sql = sql + " WHERE id = ?";
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(sql);
+            // Parameters start with 1
+            int x = 0;
+            preparedStatement.setString(++x, usuario.getNome());
+            preparedStatement.setString(++x, usuario.getTelefone());
+            preparedStatement.setString(++x, usuario.getCep());
+            preparedStatement.setString(++x, usuario.getLogradouro());
+            preparedStatement.setString(++x, usuario.getComplemento());
+            preparedStatement.setInt(++x, usuario.getNumero());
+            preparedStatement.setInt(++x, usuario.getPerfil());
+            preparedStatement.setInt(++x, usuario.getTipo_tel());
+            preparedStatement.setInt(++x, usuario.getId_estado());
+            preparedStatement.setInt(++x, usuario.getId_cidade());
+            preparedStatement.setString(++x, usuario.getBairro());
+            if (usuario.getSenha() != null) {
+                preparedStatement.setString(++x, usuario.getSenha());
+            }
+            preparedStatement.setInt(++x, usuario.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+    
+    public void remover(int idUsuario) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("UPDATE usuarios SET excluido = NOW() WHERE id = ?");
+            preparedStatement.setInt(1, idUsuario);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
     }
     
 }

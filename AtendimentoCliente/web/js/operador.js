@@ -1,7 +1,65 @@
-
+$(document).ready(function () {
+    if($('#msg').val() != "" && $('#msg').val() != undefined){
+        var classe = $("#class").val(); 
+        toastr[classe]($("#msg").val());
+    }
+    AtualizarListagem(0);
+    getCategorias();
+});
 //categorias
+function getCategorias(){
+    var url = "AJAXServlet?action=getCategorias";
+    $.ajax({
+        url : url, 
+        dataType : 'json',  
+        success : function(data) {
+            $("#categ-selecionada").empty();
+            $("#categ-selecionada").append('  <option value="" selected>SELECIONE</option>');
+            $.each(data, function(i, obj) {
+                $("#categ-selecionada").append('<option value=' + obj.id_categoria + '>' + obj.nome_categoria + '</option>');
+            });
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(request.status + ', Error: ' + request.statusText);
+        }
+    });
+}
 
+$("#categ-selecionada" ).change(function() {
+    getProdutos();
+});
+
+function getProdutos(){
+    var idCategoria = $("#categ-selecionada").val();
+    var url = "AJAXServlet?action=getProdutosCat";
+    $.ajax({
+        url : url, 
+        data : {
+            id_categoria : idCategoria
+        }, 
+        dataType : 'json',
+        success : function(data) {
+            $("#prod-selecionado").empty();
+            $("#prod-selecionado").append('  <option value="" selected disabled hidden>SELECIONE</option>');
+            $.each(data, function(i, obj) {
+                $("#prod-selecionado").append('<option value=' + obj.id + '>' + obj.nome + '</option>');
+            });
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(request.status + ', Error: ' + request.statusText);
+        }
+    });
+}
+
+function AtualizarListagem(filtro){
+    $("#listagem").load("AtendimentoServlet?action=listagem_filtros&filtro="+filtro);
+}   
+
+$("#opcoes-prod").on("change", function(){
+    AtualizarListagem($("#opcoes-prod option:selected").val());
+});
 function novaCateg() {
+    $('#categ-selecionada').val("");
     $('#insere-categ').removeClass('hidden');
     $("#editar-categ").addClass('hidden');
     $("#excluir-categ").addClass('hidden');
@@ -32,22 +90,82 @@ function editarCateg(event) {
 function confirmExcl(e) {
     if($('#categ-selecionada').prop('selectedIndex') != 0) {
         var param = $('#categ-selecionada option:selected').text();
-        if (!confirm("Excluir a categoria '" + param + "' ?")) {
-            e.preventDefault();
+        swal.fire({
+        title: "Confirme, por favor",
+        text: "Excluir a categoria '" + param + "' ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, continue!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
         }
+        }).then((isConfirm) =>{
+        if (isConfirm.value) {
+            $.ajax({
+            method: "POST",
+            url: 'ProdutosServlet?action=remover_categoria&id='+$('#categ-selecionada option:selected').val(), 
+            }).done(function( msg ) {
+                toastr["success"]("Sucesso ao remover categoria!")
+            });
+            swal.fire("Removido!", "O registro foi removido com sucesso.", "success");
+        } else {
+            swal.fire("Cancelado", "Remoção cancelada pelo usuário", "error");
+        }
+        });
     }else
-        event.preventDefault(e);
+        toastr["warning"]("Selecione uma categoria para a exclusão!")
+
 }
+$("body").on("click", function(e){
+    if (e.target.textContent == "OK"){
+        location.reload();
+    }
+});  
 function confirmIncl(e) {
     var param = $('#insere-categ input').val();
     var nome = $('#categ-selecionada option:selected').text();
-    if(param == nome || !confirm("Incluir a categoria '"+param+"' ?")){
+    if(param == nome){
         e.preventDefault();
+    }else{
+        var msg;
+        if($('#categ-selecionada option:selected').val() == ""){
+            msg = "Você gostaria de adicionar essa categoria?";
+        }else{
+            msg = "Você gostaria de modificar essa categoria";
+        }
+        swal.fire({
+        title: "Confirme, por favor",
+        text: msg,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, continue!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        }
+        }).then((isConfirm) =>{
+        if (isConfirm.value) {
+            $.ajax({
+            method: "POST",
+            url: 'ProdutosServlet?action=adicionar_categoria&id='+$('#categ-selecionada option:selected').val()+ '&nome_categoria='+$('#nome_categoria').val(), 
+            }).done(function( msg ) {
+                toastr["success"]("Sucesso ao executar operação!")
+            });
+            swal.fire("Removido!", "O registro foi removido com sucesso.", "success");
+        } else {
+            swal.fire("Cancelado", "Remoção cancelada pelo usuário", "error");
+        }
+        });
     }
 }
-
 //produtos
-
 function listaProd(){
     if($('#categ-selecionada').prop('selectedIndex') != 0) {
         $('#categ-selecionada').attr("disabled",true);
@@ -95,6 +213,32 @@ function confirmExclProd(e) {
         if (!confirm("Excluir o produto '" + param + "' ?")) {
             e.preventDefault();
         }
+        swal.fire({
+        title: "Confirme, por favor",
+        text: "Excluir a categoria '" + param + "' ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, continue!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        }
+        }).then((isConfirm) =>{
+        if (isConfirm.value) {
+            $.ajax({
+            method: "POST",
+            url: 'ProdutosServlet?action=remover_produto&id='+$('#categ-selecionada option:selected').val()+ '&nome_categoria='+$('#nome_categoria').val(), 
+            }).done(function( msg ) {
+                toastr["success"]("Sucesso ao executar operação!")
+            });
+            swal.fire("Removido!", "O registro foi removido com sucesso.", "success");
+        } else {
+            swal.fire("Cancelado", "Remoção cancelada pelo usuário", "error");
+        }
+        });
     }else
         event.preventDefault(e);
 }

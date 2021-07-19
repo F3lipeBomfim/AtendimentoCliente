@@ -1,24 +1,89 @@
 /* EQUIPE */
+$(document).ready(function () {
+    if($('#msg').val() != "" && $('#msg').val() != undefined){
+        var classe = $("#class").val(); 
+        toastr[classe]($("#msg").val());
+    }
+    getEquipe();
+});
 
+function getEquipe(){
+    var estadoId = $("#estado").val();
+    var url = "AJAXServlet?action=getEquipe";
+    $.ajax({
+        url : url, 
+        data : {
+            estadoId : estadoId
+        }, 
+        dataType : 'json',
+        success : function(data) {
+            $("#membro-selecionado").empty();   
+            $("#membro-selecionado").append('  <option value="" selected>EMAIL</option>');
+            $.each(data, function(i, obj) {
+                $("#membro-selecionado").append('<option value=' + obj.id + '>' + obj.nome+ ' (' +obj.email+ ')'  + '</option>');
+            });
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(request.status + ', Error: ' + request.statusText);
+        }
+    });
+}
+$("body").on("click", function(e){
+    if (e.target.textContent == "OK"){
+         location.reload();
+    }
+});  
 function confirmExcluir(e) {
     if($('#membro-selecionado').prop('selectedIndex') != 0) {
         var param = $('#membro-selecionado option:selected').text();
-        if (!confirm("Excluir o membro '" + param + "' da equipe?")) {
-            e.preventDefault();
-        }
+        swal.fire({
+            title: "Confirme, por favor",
+            text: "Você realmente gostaria de remover este registro?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Sim, continue!",
+            cancelButtonText: "Não, cancelar!",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown'
+            }
+            }).then((isConfirm) =>{
+            if (isConfirm.value) {
+                $.ajax({
+                method: "POST",
+                url: 'UsuarioServlet?action=remover&id_usuario='+$('#membro-selecionado option:selected').val(), 
+                }).done(function( msg ) {
+                    toastr["success"]("Registro removido com sucesso!")
+                });
+                swal.fire("Removido!", "O registro foi removido com sucesso.", "success");
+            } else {
+                swal.fire("Cancelado", "Remoção cancelada pelo usuário", "error");
+            }
+        });
     }else {
         event.preventDefault();
-        alert("Selecione um membro da equipe");
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Por favor, selecione um membro da equipe para continuar!',
+        })
     }
 }
 function editarMembro(e) {
     if($('#membro-selecionado').prop('selectedIndex') == 0) {
-        alert("Selecione um membro da equipe");
+        Swal.fire({
+            icon: 'info',
+            title: 'Oops...',
+            text: 'Por favor, selecione um membro da equipe para continuar!',
+        })
         e.preventDefault();
+    }else{
+        var idUsuario = $('#membro-selecionado option:selected').val();
+        window.location.href = "UsuarioServlet?action=editar&id="+idUsuario;
     }
 }
-
-/* NOVO/EDITAR */
 
 $(document).ready(function () {
     $('#tel').mask('(00)0000-0000');
@@ -28,7 +93,6 @@ $(document).ready(function () {
 
 function setMask(div,mask) {
     $(div).attr("placeholder",mask).mask(mask);
-
 }
 
 function validaSenha() {
