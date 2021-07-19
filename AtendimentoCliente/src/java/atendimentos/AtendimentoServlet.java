@@ -139,10 +139,14 @@ public class AtendimentoServlet extends HttpServlet {
                 }
             }else if(perfil == 3){
                 switch (action) {
-                    case "listar_atendimentos_gerente":
+                  case "listar_atendimentos_gerente":
                         forward = "/gerente-atendimentos.jsp";
-                        int filtro = Integer.parseInt(request.getParameter("filtro"));
-                        request.setAttribute("atendimentos", atendimentoDAO.getAllAtendimentosEquipe(filtro)); 
+                    break;
+                    case "listagem_filtros":
+                        int filro = 0;
+                        filro = Integer.parseInt(request.getParameter("filtro"));
+                        request.setAttribute("atendimentos", atendimentoDAO.getAllAtendimentosEquipe(filro)); 
+                        forward = "/listagem-gerente.jsp";
                     break;
                     case "atendimento_detalhes_gerente":
                         int idAtendimento = Integer.parseInt(request.getParameter("id"));

@@ -5,6 +5,16 @@ $(document).ready(function () {
         toastr[classe]($("#msg").val());
     }
     getEquipe();
+    AtualizarListagem(0);
+
+});
+
+function AtualizarListagem(filtro){
+    $("#listagem").load("AtendimentoServlet?action=listagem_filtros&filtro="+filtro);
+}   
+
+$("#opcoes-prod").on("change", function(){
+    AtualizarListagem($("#opcoes-prod option:selected").val());
 });
 
 function getEquipe(){
