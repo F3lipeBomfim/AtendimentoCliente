@@ -177,6 +177,7 @@
         </c:choose>
     </c:when>
     <c:otherwise>
+          <input type="hidden" name="permissao" value=""> 
           <button type="submit" style="font-size:18px" class="uk-button uk-button-primary uk-button-large">SALVAR</button>
     </c:otherwise>
 </c:choose>
