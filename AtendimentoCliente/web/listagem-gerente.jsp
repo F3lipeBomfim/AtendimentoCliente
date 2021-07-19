@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listagem-operador.jsp
-    Created on : 18/07/2021, 19:07:30
+    Document   : listagem-gerente
+    Created on : 18/07/2021, 21:40:07
     Author     : Felipe Bomfim
 --%>
 
@@ -23,10 +23,10 @@
         <c:forEach items="${atendimentos}" var="atendimento">
             <fmt:parseDate value="${atendimento.data}" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
             <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="dataAtual" />
+            
           <c:choose>
-              <%--<c:if test="${(empty object_1.attribute_A) and (empty object_2.attribute_B)}">--%>
             <c:when test="${(atendimento.date_diff > 7) and (empty atendimento.data_resposta)}">
-             <a href="AtendimentoServlet?action=atendimento_detalhes_operador&id=${atendimento.id}">
+             <a href="AtendimentoServlet?action=atendimento_detalhes_gerente&id=${atendimento.id}">
                 <div class="atendimento urgente block">
                     <div class="left rotulo-esq">
                         <div class="block topico superior">${fn:toUpperCase(atendimento.titulo)}</div>
@@ -43,7 +43,7 @@
             </a>
             </c:when>
             <c:when test="${(atendimento.date_diff < 7) and (empty atendimento.data_resposta)}">
-             <a href="AtendimentoServlet?action=atendimento_detalhes_operador&id=${atendimento.id}">
+             <a href="AtendimentoServlet?action=atendimento_detalhes_gerente&id=${atendimento.id}">
                 <div class="atendimento aberto block">
                     <div class="left rotulo-esq">
                         <!-- pegar e preencher os respectivos dados abaixo do bd-->
@@ -57,7 +57,7 @@
             </a>
             </c:when>
             <c:otherwise>
-             <a href="AtendimentoServlet?action=atendimento_detalhes_operador&id=${atendimento.id}">
+             <a href="AtendimentoServlet?action=atendimento_detalhes_gerente&id=${atendimento.id}">
                     <div class="atendimento block">
                     <div class="left rotulo-esq">
                         <div class="block topico superior">${fn:toUpperCase(atendimento.titulo)}</div>
