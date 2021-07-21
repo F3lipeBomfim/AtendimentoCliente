@@ -35,9 +35,9 @@
           <nav class="right">
               <ul>
                   <!-- direcione para as servlets adequadas-->
-                  <li id="atendimentos"><a href="gerente-atendimentos.html">ATENDIMENTOS</a></li>
-                  <li id="equipe" class="ativo"><a href="gerente-equipe.html">EQUIPE</a></li>
-                  <li id="relatorios"><a href="gerente-relatorios.html">RELATÓRIOS</a></li>
+                  <li id="atendimentos"><a href="gerente-atendimentos.jsp">ATENDIMENTOS</a></li>
+                  <li id="equipe" class="ativo"><a href="gerente-equipe.jsp">EQUIPE</a></li>
+                  <li id="relatorios"><a href="gerente-relatorios.jsp">RELATÓRIOS</a></li>
                   <li><a href="index.html">SAIR</a></li>
               </ul>
           </nav>
