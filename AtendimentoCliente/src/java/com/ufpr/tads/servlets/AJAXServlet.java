@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AJAXServlet;
+package com.ufpr.tads.servlets;
 
-import Cidade.CidadeDAO;
-import Estados.EstadosDAO;
-import Produtos.ProdutosDAO;
-import Usuario.UsuarioDAO;
+import com.ufpr.tads.dao.CidadeDAO;
+import com.ufpr.tads.dao.EstadosDAO;
+import com.ufpr.tads.dao.ProdutosDAO;
+import com.ufpr.tads.dao.UsuarioDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;

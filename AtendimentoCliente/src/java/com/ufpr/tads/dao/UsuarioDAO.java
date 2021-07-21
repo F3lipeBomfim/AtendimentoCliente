@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Usuario;
+package com.ufpr.tads.dao;
 
 //import LoginBean.LoginBean;
 import java.sql.Connection;
@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import ConnectionFactory.ConnectionFactory;
-import Produtos.Produtos;
+import com.ufpr.tads.beans.Produtos;
+import com.ufpr.tads.beans.Usuario;
 import java.sql.Statement;
 
 /**

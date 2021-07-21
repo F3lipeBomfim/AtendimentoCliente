@@ -59,7 +59,7 @@
               <div id="boas-vindas" class="block">Bem vindo, VISITANTE</div>
           </div>
           <nav class="right">
-              <div id="login-key" class="right img"><a href="index.html"><img src="img/signin.png"></a></div>
+              <div id="login-key" class="right img"><a href="index.jsp"><img src="img/signin.png"></a></div>
           </nav>
       </header>
     </c:otherwise>

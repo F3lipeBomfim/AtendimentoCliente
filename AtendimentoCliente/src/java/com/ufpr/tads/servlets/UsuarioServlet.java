@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Usuario;
+package com.ufpr.tads.servlets;
 
-import atendimentos.AtendimentoDAO;
+import com.ufpr.tads.beans.Usuario;
+import com.ufpr.tads.dao.UsuarioDAO;
+import com.ufpr.tads.dao.AtendimentoDAO;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

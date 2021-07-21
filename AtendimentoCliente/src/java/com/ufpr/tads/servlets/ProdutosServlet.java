@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Produtos;
+package com.ufpr.tads.servlets;
 
-import Usuario.Usuario;
-import atendimentos.AtendimentoDAO;
+import com.ufpr.tads.beans.Produtos;
+import com.ufpr.tads.dao.ProdutosDAO;
+import com.ufpr.tads.beans.Usuario;
+import com.ufpr.tads.dao.AtendimentoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;

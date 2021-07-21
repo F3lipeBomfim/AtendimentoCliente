@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Produtos;
+package com.ufpr.tads.beans;
 
 import java.io.Serializable;
 

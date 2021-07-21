@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package atendimentos;
+package com.ufpr.tads.servlets;
 
+import com.ufpr.tads.beans.Atendimento;
+import com.ufpr.tads.dao.AtendimentoDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Cidade;
+package com.ufpr.tads.dao;
 
-import ConnectionFactory.ConnectionFactory;
-import Estados.Estados;
+import com.ufpr.tads.beans.Cidade;
+import com.ufpr.tads.beans.Estados;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
