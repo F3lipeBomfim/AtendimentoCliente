@@ -144,6 +144,16 @@ public class ProdutosDAO {
             e.printStackTrace();
         }   
     }
+    public void removerProduto(int idProduto) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("DELETE FROM produto WHERE id = ?");
+            preparedStatement.setInt(1, idProduto);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
+    }
     
     public void adicionarProduto(Produtos produtos) {
       try {

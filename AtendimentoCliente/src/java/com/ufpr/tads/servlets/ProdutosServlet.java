@@ -73,6 +73,11 @@ public class ProdutosServlet extends HttpServlet {
                     produtoDAO.removerCategoria(id);
                     forward = "";  
                 break;
+                case "remover_produto":
+                    id = Integer.parseInt(request.getParameter("id"));
+                    produtoDAO.removerProduto(id);
+                    forward = "";  
+                break;
                 case "adicionar_produto":
                     forward = "";  
                     produto.setNome(request.getParameter("nome_produto"));

@@ -18,6 +18,7 @@
     <script type="text/javascript" src="universal/js/jquery.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <header>
@@ -69,8 +70,8 @@
                 </select>
             </div>
         </div>
-        <a id="editar-prod" class="prod-icon left" uk-icon="icon: cog" href="" onclick="editarProd(event)"></a>
-        <a id="excluir-prod" class="prod-icon left" uk-icon="icon: trash" href="" onclick="confirmExclProd(event);"></a>
+        <a id="editar-prod" class="prod-icon left" uk-icon="icon: cog" href="#" onclick="editarProd(event)"></a>
+        <a id="excluir-prod" class="prod-icon left" uk-icon="icon: trash" href="#" onclick="confirmExclProd(event);"></a>
         <a id="btn-novo-prod" class="left uk-button uk-button-default" href="operador-produto-form.jsp">NOVO</a>
         <a id="btn-cancel-categ" style="margin-top:42px" class="left uk-button uk-button-default" onclick="cancelarProd();">CANCELAR</a>
     </form>

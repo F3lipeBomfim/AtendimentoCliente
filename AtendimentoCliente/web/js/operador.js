@@ -208,11 +208,10 @@ function editarProd(event) {
         event.preventDefault();
 }
 function confirmExclProd(e) {
+    console.log('oi');
     if($('#prod-selecionado').prop('selectedIndex') != 0) {
         var param = $('#prod-selecionado option:selected').text();
-        if (!confirm("Excluir o produto '" + param + "' ?")) {
-            e.preventDefault();
-        }
+        var id = $('#prod-selecionado option:selected').val();
         swal.fire({
         title: "Confirme, por favor",
         text: "Excluir a categoria '" + param + "' ?",
@@ -230,7 +229,7 @@ function confirmExclProd(e) {
         if (isConfirm.value) {
             $.ajax({
             method: "POST",
-            url: 'ProdutosServlet?action=remover_produto&id='+$('#categ-selecionada option:selected').val()+ '&nome_categoria='+$('#nome_categoria').val(), 
+            url: 'ProdutosServlet?action=remover_produto&id='+id, 
             }).done(function( msg ) {
                 toastr["success"]("Sucesso ao executar operação!")
             });
