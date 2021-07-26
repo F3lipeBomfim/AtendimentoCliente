@@ -51,8 +51,6 @@
             <div class="uk-form-controls">
                 <select class="uk-select" id="categ-selecionada" name="nome-categ" onchange="listaProd()">
                     <option selected>SELECIONE</option><!--buscar todas  as categorias do bd-->
-                    <option value="1">Creme</option>
-                    <option value="2">Xampu</option>
                 </select>
             </div>
         </div>
@@ -63,9 +61,6 @@
             <div class="uk-form-controls">
                 <select class="uk-select" id="prod-selecionado" name="nome-prod">
                     <option selected>SELECIONE</option> <!--buscar todos os produtos da categoria selecionada -->
-                    <option value="1">Creme para mãoes Embuste</option>
-                    <option value="2">Creme para pés Super Embuste</option>
-                    <option value="3">Creme para a bunda Mega Embuste</option>
                 </select>
             </div>
         </div>
