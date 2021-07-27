@@ -6,7 +6,7 @@
 package com.ufpr.tads.dao;
 
 import com.ufpr.tads.beans.Atendimento;
-//import com.ufpr.tads.dao.ConnectionFactory;
+import com.ufpr.tads.dao.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
