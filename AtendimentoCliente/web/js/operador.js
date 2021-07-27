@@ -204,18 +204,19 @@ function editarProd(event) {
         $('#categ-selecionado').attr("disabled", true);
         $('#btn-cancel-categ').addClass('hidden');
         $('#insere-prod input').val(nome).focus();
+        $('#insere-prod textArea').val("Descrição").focus();
     }else
         event.preventDefault();
+        console.log('caius');
 }
 function confirmExclProd(e) {
+    console.log('oi');
     if($('#prod-selecionado').prop('selectedIndex') != 0) {
         var param = $('#prod-selecionado option:selected').text();
-        if (!confirm("Excluir o produto '" + param + "' ?")) {
-            e.preventDefault();
-        }
+        var id = $('#prod-selecionado option:selected').val();
         swal.fire({
         title: "Confirme, por favor",
-        text: "Excluir a categoria '" + param + "' ?",
+        text: "Excluir o produto '" + param + "' ?",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
@@ -230,7 +231,7 @@ function confirmExclProd(e) {
         if (isConfirm.value) {
             $.ajax({
             method: "POST",
-            url: 'ProdutosServlet?action=remover_produto&id='+$('#categ-selecionada option:selected').val()+ '&nome_categoria='+$('#nome_categoria').val(), 
+            url: 'ProdutosServlet?action=remover_produto&id='+id, 
             }).done(function( msg ) {
                 toastr["success"]("Sucesso ao executar operação!")
             });
@@ -241,4 +242,47 @@ function confirmExclProd(e) {
         });
     }else
         event.preventDefault(e);
+}
+
+function confirmInclProd(e) {
+    var param = $('#insere-prod input').val();
+    var nome = $('#prod-selecionado option:selected').text();
+    var desc = $('#desc-prod textarea').val();
+    
+    if(param == nome){
+        e.preventDefault();
+    }else{
+        var msg;
+        if($('#prod-selecionado option:selected').val() == ""){
+            msg = "Você gostaria de adicionar esse produto?";
+        }else{
+            msg = "Você gostaria de modificar esse produto";
+        }
+        swal.fire({
+        title: "Confirme, por favor",
+        text: msg,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Sim, continue!",
+        cancelButtonText: "Não, cancelar!",
+        closeOnConfirm: false,
+        closeOnCancel: false,
+        showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+        }
+        }).then((isConfirm) =>{
+        if (isConfirm.value) {
+            $.ajax({
+            method: "POST",
+            url: 'ProdutosServlet?action=alterar_produto&id='+$('#prod-selecionado option:selected').val()+ '&nome_prod='+$('#nome_prod').val(), 
+            }).done(function( msg ) {
+                toastr["success"]("Sucesso ao executar operação!")
+            });
+            swal.fire("Alterado!", "O registro foi alterado com sucesso.", "success");
+        } else {
+            swal.fire("Cancelado", "Alteração cancelada pelo usuário", "error");
+        }
+        });
+    }
 }

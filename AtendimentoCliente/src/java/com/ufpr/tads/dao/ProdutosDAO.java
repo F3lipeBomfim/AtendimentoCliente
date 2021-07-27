@@ -122,6 +122,19 @@ public class ProdutosDAO {
             e.printStackTrace();
         }
     }
+    public void AlterarProd(Produtos produtos) {
+        try {
+            String sql = "UPDATE produto SET nome = ? WHERE id = ?";
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(sql);
+            preparedStatement.setString(1, produtos.getNome());
+            preparedStatement.setInt(2, produtos.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void AddCategoria(Produtos produtos) {
         try {
             String sql = "INSERT categoria_produto SET nome = ?";
@@ -139,6 +152,16 @@ public class ProdutosDAO {
             PreparedStatement preparedStatement = connection
                     .prepareStatement("DELETE FROM categoria_produto WHERE id = ?");
             preparedStatement.setInt(1, idCategoria);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
+    }
+    public void removerProduto(int idProduto) {
+        try {
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement("DELETE FROM produto WHERE id = ?");
+            preparedStatement.setInt(1, idProduto);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
