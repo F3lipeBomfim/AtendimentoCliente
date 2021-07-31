@@ -82,6 +82,7 @@ public class ProdutosServlet extends HttpServlet {
                     id = Integer.parseInt(request.getParameter("id"));
                     produto.setId(id);
                     produto.setNome(request.getParameter("nome_prod"));
+                    produto.setDescricao(request.getParameter("desc_prod"));
                     produtoDAO.AlterarProd(produto);
                     forward = "";
                     break;

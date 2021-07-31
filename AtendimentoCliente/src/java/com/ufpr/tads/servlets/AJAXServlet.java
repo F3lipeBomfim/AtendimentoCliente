@@ -12,15 +12,18 @@ import com.ufpr.tads.dao.UsuarioDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static javax.faces.component.UIInput.isEmpty;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Felipe Bomfim    
+ * @author Felipe Bomfim
  */
 @WebServlet(name = "AJAXServlet", urlPatterns = {"/AJAXServlet"})
 public class AJAXServlet extends HttpServlet {
@@ -38,59 +41,59 @@ public class AJAXServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
-        switch (action){
+        switch (action) {
             case "getEstados":
                 EstadosDAO EstadosDAO = new EstadosDAO();
-                String json = new Gson().toJson(EstadosDAO.getAllEstados());   
+                String json = new Gson().toJson(EstadosDAO.getAllEstados());
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getCidades":
                 CidadeDAO CidadeDAO = new CidadeDAO();
                 int id_estado = Integer.parseInt(request.getParameter("estadoId"));
-                json = new Gson().toJson(CidadeDAO.getAllCidades(id_estado));   
+                json = new Gson().toJson(CidadeDAO.getAllCidades(id_estado));
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getProdutosCat":
                 ProdutosDAO ProdutoDAO = new ProdutosDAO();
                 int idCategoria = Integer.parseInt(request.getParameter("id_categoria"));
-                json = new Gson().toJson(ProdutoDAO.getAllProdutosCat(idCategoria));   
+                json = new Gson().toJson(ProdutoDAO.getAllProdutosCat(idCategoria));
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getProdutos":
                 ProdutoDAO = new ProdutosDAO();
-                json = new Gson().toJson(ProdutoDAO.getAllProdutos());   
+                json = new Gson().toJson(ProdutoDAO.getAllProdutos());
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getCategorias":
                 ProdutoDAO = new ProdutosDAO();
-                json = new Gson().toJson(ProdutoDAO.getAllCategorias());   
+                json = new Gson().toJson(ProdutoDAO.getAllCategorias());
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getTipoAtendimento":
                 ProdutoDAO = new ProdutosDAO();
-                json = new Gson().toJson(ProdutoDAO.getAllTipos());   
+                json = new Gson().toJson(ProdutoDAO.getAllTipos());
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
             case "getEquipe":
                 UsuarioDAO UsuarioDAO = new UsuarioDAO();
                 int idUsuarioSessao = (int) request.getSession().getAttribute("id");
-                json = new Gson().toJson(UsuarioDAO.getAllEquipe(idUsuarioSessao));   
+                json = new Gson().toJson(UsuarioDAO.getAllEquipe(idUsuarioSessao));
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
-                response.getWriter().write(json); 
-            break;
+                response.getWriter().write(json);
+                break;
         }
     }
 

@@ -103,7 +103,7 @@ public class AtendimentoDAO {
     
     public void AdicionarResposta(Atendimento atendimento) {
         try {
-            String sql = "UPDATE atendimento SET resposta = ?, data_hora_resposta = NOW() WHERE id = ?";
+            String sql = "UPDATE atendimento SET resposta = ?, data_hora_resposta = NOW(), situacao = 2 WHERE id = ?";
             PreparedStatement preparedStatement = connection
                     .prepareStatement(sql);
             int x = 0;

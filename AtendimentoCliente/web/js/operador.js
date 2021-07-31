@@ -204,7 +204,7 @@ function editarProd(event) {
         $('#categ-selecionado').attr("disabled", true);
         $('#btn-cancel-categ').addClass('hidden');
         $('#insere-prod input').val(nome).focus();
-        $('#insere-prod textArea').val("Descrição").focus();
+        $('#insere-prod textArea').val('').focus();
     }else
         event.preventDefault();
         console.log('caius');
@@ -247,7 +247,6 @@ function confirmExclProd(e) {
 function confirmInclProd(e) {
     var param = $('#insere-prod input').val();
     var nome = $('#prod-selecionado option:selected').text();
-    var desc = $('#desc-prod textarea').val();
     
     if(param == nome){
         e.preventDefault();
@@ -275,7 +274,7 @@ function confirmInclProd(e) {
         if (isConfirm.value) {
             $.ajax({
             method: "POST",
-            url: 'ProdutosServlet?action=alterar_produto&id='+$('#prod-selecionado option:selected').val()+ '&nome_prod='+$('#nome_prod').val(), 
+            url: 'ProdutosServlet?action=alterar_produto&id='+$('#prod-selecionado option:selected').val()+ '&nome_prod='+$('#nome_prod').val()+ '&desc_prod='+$('#desc_prod').val(), 
             }).done(function( msg ) {
                 toastr["success"]("Sucesso ao executar operação!")
             });

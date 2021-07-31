@@ -124,11 +124,12 @@ public class ProdutosDAO {
     }
     public void AlterarProd(Produtos produtos) {
         try {
-            String sql = "UPDATE produto SET nome = ? WHERE id = ?";
+            String sql = "UPDATE produto SET nome = ? ,descricao = ? WHERE id = ?";
             PreparedStatement preparedStatement = connection
                     .prepareStatement(sql);
             preparedStatement.setString(1, produtos.getNome());
-            preparedStatement.setInt(2, produtos.getId());
+            preparedStatement.setString(2, produtos.getDescricao());
+            preparedStatement.setInt(3, produtos.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

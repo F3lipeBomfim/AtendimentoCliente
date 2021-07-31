@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -21,24 +22,29 @@
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </head>
     <body>
-        <header>
-            <div id="logo" class="img left"><img src="img/logo.png"></div>
-            <div id="info-cabecalho" class="left">
-                <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div>
-                <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
-            </div>
-            <nav class="right">
-                <ul>
-                    <!-- direcione para as servlets adequadas-->
-                    <li id="atendimentos"><a href="AtendimentoServlet?action=listar_atendimentos_funcionario">ATENDIMENTOS</a></li>
-                    <li id="categorias"><a href="operador-categorias.jsp">CATEGORIAS</a></li>
-                    <li id="produtos" class="ativo"><a href="operador-produtos.jsp">PRODUTOS</a></li>
-                    <li><a href="Logout">SAIR</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div id="foto-menu" class="right img"><img src="img/prod.jpg"></div>
-        <h1 class="left titulo">PRODUTOS</h1>
+        <c:if test="${empty nome}">
+            <c:set var="msg" value="Usuário deve se autenticar para acessar o sistema" scope="request" />
+            <c:set var="class" value="error" scope="request" />
+            <jsp:forward page="index.jsp" />
+        </c:if>
+    <header>
+        <div id="logo" class="img left"><img src="img/logo.png"></div>
+        <div id="info-cabecalho" class="left">
+            <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div>
+            <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
+        </div>
+        <nav class="right">
+            <ul>
+                <!-- direcione para as servlets adequadas-->
+                <li id="atendimentos"><a href="AtendimentoServlet?action=listar_atendimentos_funcionario">ATENDIMENTOS</a></li>
+                <li id="categorias"><a href="operador-categorias.jsp">CATEGORIAS</a></li>
+                <li id="produtos" class="ativo"><a href="operador-produtos.jsp">PRODUTOS</a></li>
+                <li><a href="Logout">SAIR</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="foto-menu" class="right img"><img src="img/prod.jpg"></div>
+    <h1 class="left titulo">PRODUTOS</h1>
 
     <c:if test="${not empty msg}">
         <input type="hidden" id="msg" value="${msg}" />
@@ -75,10 +81,10 @@
                 <input class="uk-input" id="nome_prod" type="text" placeholder="Digite o produto...">
             </div>
             <div class="block uk-margin">
-                <textarea id="desc-prod" class="uk-textarea" rows="5" name="descricao_prod" placeholder="Descrição" required></textarea>
+                <textarea id="desc_prod" class="uk-textarea" rows="5" name="desc_prod" placeholder="Descrição" required></textarea>
             </div>
             <button id="btn-salvar-categ" type="button" class="left uk-button uk-button-primary" onclick="confirmInclProd(event);">SALVAR</button>
-            <a id="btn-cancel-categ" class="left uk-button uk-button-default" onclick="cancelar();">CANCELAR</a>
+            <a id="btn-cancel-categ" class="left uk-button uk-button-default" onclick="cancelarProd();">CANCELAR</a>
         </form>
 
     </div>
