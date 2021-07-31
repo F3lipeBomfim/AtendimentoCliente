@@ -54,7 +54,7 @@
             <div class="resp block" >
                 <h2 class="left subtitulo-resp">RESPOSTA</h2>
                 <div class="resp-desc block">${atendimentos.resposta}</div>
-                <div class="resp-fechamento right">Finalizado em <span class="resp-data">01/01/2018</span></div>
+                <div class="resp-fechamento right">Finalizado em <span class="resp-data">${atendimentos.data_resposta}</span></div>
             </div>
         </div>
 
