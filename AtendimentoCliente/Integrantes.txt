@@ -2,3 +2,7 @@
     Nome: Fernando Luis Dunaiski Bruginski
     Matricula: GRR20193742
     E-mail: fernandodunaiski@gmail.com
+
+    Nome: Felipe Henrique Bomfim
+    Matrícula: GRR20197082
+    E-mail: felipe4950@gmail.com
