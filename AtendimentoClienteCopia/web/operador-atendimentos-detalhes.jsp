@@ -1,9 +1,8 @@
 <%-- 
-    Document   : gerente-atendimentos-detalhes
-    Created on : 18/07/2021, 15:37:30
+    Document   : operador-atendimentos-detalhes
+    Created on : 18/07/2021, 17:03:08
     Author     : Felipe Bomfim
 --%>
-
 <%@ page errorPage = "erro.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page session="true" %>
@@ -25,21 +24,20 @@
     <body>
         <c:if test="${empty nome}">
             <c:set var="msg" value="Usuário deve se autenticar para acessar o sistema" scope="request" />
-            <c:set var="class" value="error" scope="request" />
+            <c:set var="page" value="Página Inicial" scope="request" />
             <jsp:forward page="index.jsp" />
         </c:if>
         <header>
             <div id="logo" class="img left"><img src="img/logo.png"></div>
             <div id="info-cabecalho" class="left">
                 <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div>
-                <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
             </div>
             <nav class="right">
                 <ul>
                     <!-- direcione para as servlets adequadas-->
-                    <li id="atendimentos"><a href="AtendimentoServlet?action=listar_atendimentos_gerente">ATENDIMENTOS</a></li>
-                    <li id="equipe" class="ativo"><a href="gerente-equipe.jsp">EQUIPE</a></li>
-                    <li id="relatorios"><a href="gerente-relatorios.jsp">RELATÓRIOS</a></li>
+                    <li id="atendimentos" class="ativo"><a href="AtendimentoServlet?action=listar_atendimentos_funcionario">ATENDIMENTOS</a></li>
+                    <li id="categorias"><a href="operador-categorias.jsp">CATEGORIAS</a></li>
+                    <li id="produtos"><a href="operador-produtos.jsp">PRODUTOS</a></li>
                     <li><a href="Logout">SAIR</a></li>
                 </ul>
             </nav>
@@ -49,23 +47,32 @@
 
         <div class="atend-detalhes block">
             <div class="atend-desc block">${fn:toUpperCase(atendimentos.descricao)}</div>
-            <div class="atend-tipo right">${fn:toUpperCase(atendimentos.tipoAtendimento)}</div>
+            <div class="atend-tipo right">${fn:toUpperCase(atendimentos.tipoAtendimento)} - ${fn:toUpperCase(atendimentos.produto)} </div>
+
             <fmt:parseDate value="${atendimentos.data_resposta}" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
-            <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="dataAtual" />
-            <c:if test="${!empty date}">
-                <div class="resp block" >
+            <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="data" />
+
+            <c:if test="${not empty data}">
+                <div class="resp block">
                     <h2 class="left subtitulo-resp">RESPOSTA</h2>
-                    <div class="resp-desc block">${atendimentos.resposta}</div>
-                    <div class="resp-fechamento right">Finalizado em <span class="resp-data">${dataAtual}</span></div>
+                    <div class="resp-desc block">${fn:toUpperCase(atendimentos.resposta)}</div><!--preencher dinamicamente-->
+                    <div class="resp-fechamento right">Finalizado em <span class="resp-data">${data}</span></div>
                 </div>
             </c:if>
-        </div>
 
-        <a href="AtendimentoServlet?action=listar_atendimentos_gerente" id="btn-atend-voltar" class="right uk-button uk-button-default">VOLTAR</a>
+        </div>
+        <c:if test="${empty data}">
+            <form action="AtendimentoServlet?action=adicionar_resposta&id=${atendimentos.id}" method="post" class="form-resp"><!-- enviar para a servlet-->
+                <textarea class="resp-textarea uk-textarea block" name="resp" rows="5" placeholder="Sua resposta..."></textarea>
+                <button type="submit" id="btn-resp-enviar" class="left uk-button uk-button-primary">Enviar</button>
+            </form>
+        </c:if>
+
+        <a href="AtendimentoServlet?action=listar_atendimentos_funcionario" id="btn-atend-voltar" class="right uk-button uk-button-default">VOLTAR</a>
 
         <link rel="stylesheet" href="universal/css/menu.css">
         <link rel="stylesheet" href="universal/css/reset.css">
-        <link rel="stylesheet" href="css/gerente.css">
-        <script type="text/javascript" src="js/gerente.js"></script>
+        <link rel="stylesheet" href="css/operador.css">
+        <script type="text/javascript" src="js/operador.js"></script>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : gerente-atendimentos-detalhes
-    Created on : 18/07/2021, 15:37:30
+    Document   : gerente_equipe
+    Created on : 18/07/2021, 13:26:10
     Author     : Felipe Bomfim
 --%>
 
@@ -14,13 +14,16 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Meus atendimentos</title>
+        <title>ATENDIMENTOS</title>
         <!-- UIkit CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/css/uikit.min.css"/>
         <!-- UIkit JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit-icons.min.js"></script>
         <script type="text/javascript" src="universal/js/jquery.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     </head>
     <body>
         <c:if test="${empty nome}">
@@ -29,10 +32,13 @@
             <jsp:forward page="index.jsp" />
         </c:if>
         <header>
+            <c:if test="${not empty msg}">
+                <input type="hidden" id="msg" value="${msg}" />
+                <input type="hidden" id="class" value="${class}" />
+            </c:if>
             <div id="logo" class="img left"><img src="img/logo.png"></div>
             <div id="info-cabecalho" class="left">
-                <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div>
-                <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
+                <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div> <!--buscar no bd e preencher o nome do gerente-->
             </div>
             <nav class="right">
                 <ul>
@@ -44,24 +50,20 @@
                 </ul>
             </nav>
         </header>
-        <div id="foto-menu" class="right img"><img src="img/support.png"></div>
-        <h1 class="left titulo">${fn:toUpperCase(atendimentos.titulo)}</h1>
+        <div id="foto-menu" class="right img"><img src="img/users.png"></div>
+        <h1 class="left titulo-atend">EQUIPE</h1>
 
-        <div class="atend-detalhes block">
-            <div class="atend-desc block">${fn:toUpperCase(atendimentos.descricao)}</div>
-            <div class="atend-tipo right">${fn:toUpperCase(atendimentos.tipoAtendimento)}</div>
-            <fmt:parseDate value="${atendimentos.data_resposta}" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
-            <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="dataAtual" />
-            <c:if test="${!empty date}">
-                <div class="resp block" >
-                    <h2 class="left subtitulo-resp">RESPOSTA</h2>
-                    <div class="resp-desc block">${atendimentos.resposta}</div>
-                    <div class="resp-fechamento right">Finalizado em <span class="resp-data">${dataAtual}</span></div>
+        <form action="" method="post">
+            <div id="equipe-select" class="block uk-margin">
+                <label class="uk-form-label" for="membro-selecionado">Selecione membro da equipe</label>
+                <div class="uk-form-controls">
+                    <select class="left uk-select" id="membro-selecionado"></select>
                 </div>
-            </c:if>
-        </div>
-
-        <a href="AtendimentoServlet?action=listar_atendimentos_gerente" id="btn-atend-voltar" class="right uk-button uk-button-default">VOLTAR</a>
+                <button id="editar-membro" type="button" class="equipe-icon left" uk-icon="icon: cog" onclick="editarMembro();"></button>
+                <a id="excluir-membro" class="equipe-icon left" uk-icon="icon: trash" href="#" onclick="confirmExcluir(event);"></a>
+                <a href="cadastro.jsp" id="btn-novo-membro" class="block uk-button uk-button-default">NOVO</a>
+            </div>
+        </form>
 
         <link rel="stylesheet" href="universal/css/menu.css">
         <link rel="stylesheet" href="universal/css/reset.css">

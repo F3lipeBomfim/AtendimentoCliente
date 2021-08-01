@@ -1,6 +1,6 @@
 <%-- 
-    Document   : gerente-atendimentos-detalhes
-    Created on : 18/07/2021, 15:37:30
+    Document   : gerente-atendimentos
+    Created on : 18/07/2021, 12:40:14
     Author     : Felipe Bomfim
 --%>
 
@@ -14,13 +14,16 @@
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
-        <title>Meus atendimentos</title>
+        <title>ATENDIMENTOS</title>
         <!-- UIkit CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/css/uikit.min.css"/>
         <!-- UIkit JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.20/js/uikit-icons.min.js"></script>
         <script type="text/javascript" src="universal/js/jquery.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     </head>
     <body>
         <c:if test="${empty nome}">
@@ -31,37 +34,36 @@
         <header>
             <div id="logo" class="img left"><img src="img/logo.png"></div>
             <div id="info-cabecalho" class="left">
-                <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div>
-                <!--alterar dinamicamente o "span" com o nome do referido operador no bd-->
+                <div id="boas-vindas" class="block">Bem vindo, <span>${sessionScope.nome}</span></div> <!--buscar no bd e preencher o nome do operador-->
             </div>
             <nav class="right">
                 <ul>
                     <!-- direcione para as servlets adequadas-->
-                    <li id="atendimentos"><a href="AtendimentoServlet?action=listar_atendimentos_gerente">ATENDIMENTOS</a></li>
-                    <li id="equipe" class="ativo"><a href="gerente-equipe.jsp">EQUIPE</a></li>
+                    <li id="atendimentos" class="ativo"><a href="">ATENDIMENTOS</a></li>
+                    <li id="equipe"><a href="gerente-equipe.jsp">EQUIPE</a></li>
                     <li id="relatorios"><a href="gerente-relatorios.jsp">RELATÓRIOS</a></li>
                     <li><a href="Logout">SAIR</a></li>
                 </ul>
             </nav>
         </header>
+
+        <c:if test="${not empty msg}">
+            <input type="hidden" id="msg" value="${msg}" />
+            <input type="hidden" id="class" value="${class}" />
+        </c:if>
         <div id="foto-menu" class="right img"><img src="img/support.png"></div>
-        <h1 class="left titulo">${fn:toUpperCase(atendimentos.titulo)}</h1>
-
-        <div class="atend-detalhes block">
-            <div class="atend-desc block">${fn:toUpperCase(atendimentos.descricao)}</div>
-            <div class="atend-tipo right">${fn:toUpperCase(atendimentos.tipoAtendimento)}</div>
-            <fmt:parseDate value="${atendimentos.data_resposta}" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
-            <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="dataAtual" />
-            <c:if test="${!empty date}">
-                <div class="resp block" >
-                    <h2 class="left subtitulo-resp">RESPOSTA</h2>
-                    <div class="resp-desc block">${atendimentos.resposta}</div>
-                    <div class="resp-fechamento right">Finalizado em <span class="resp-data">${dataAtual}</span></div>
-                </div>
-            </c:if>
+        <h1 class="left titulo-atend">ATENDIMENTOS</h1>
+        <div id="div-opcoes-prod" class="uk-margin">
+            <label class="uk-form-label" for="opcoes-prod">Exibir:s</label>
+            <select id="opcoes-prod" class="uk-select">
+                <!-- buscar no bd por estes critérios e listar-->
+                <option value="0">TODOS</option>
+                <option value="1">ABERTOS</option>
+                <option value="2">URGENTES</option>
+                <option value="3">FECHADOS</option>
+            </select>
         </div>
-
-        <a href="AtendimentoServlet?action=listar_atendimentos_gerente" id="btn-atend-voltar" class="right uk-button uk-button-default">VOLTAR</a>
+        <div id="listagem"> </div>
 
         <link rel="stylesheet" href="universal/css/menu.css">
         <link rel="stylesheet" href="universal/css/reset.css">

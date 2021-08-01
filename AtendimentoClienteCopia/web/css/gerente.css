@@ -1,0 +1,235 @@
+/*****ATENDIMENTOS*****/
+
+
+.titulo-atend{
+    width: 350px !important;
+    margin-left: 2%;
+}
+#div-opcoes-prod{
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    top: 20px;
+    left: 50px;
+}
+
+.atendimento{
+    width: 96% !important;
+    border: 4px #888 double;
+    margin-left: 2%;
+    height: 80px;
+    margin-top: 5px;
+}
+.urgente{
+    border-color: red;
+}
+.aberto{
+    border-color: yellow;
+}
+.rotulo-dir{
+    margin-right: 10px;
+    text-align: right;
+    width: 20%;
+    text-decoration: none;
+    color: black;
+}
+.rotulo-esq{
+    width: 75%;
+    text-decoration: none;
+    color: black;
+}
+.superior{
+    margin-bottom: 5px;
+}
+.topico{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.tipo{
+    width: 200px;
+    margin-left: 10px;
+}
+.nome-cli{
+    width: 400px;
+    max-width: 450px;
+}
+.email{
+    width: 400px;
+    max-width: 450px;
+}
+.data{
+    text-align: right;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+/*****DETALHES*****/
+
+.atend-detalhes{
+    width: 90%;
+    margin-left: 2%;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.subtitulo-resp{
+    font-family: "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+.atend-tipo,.resp-fechamento{
+    text-align: right;
+    margin: 30px auto;
+    font-weight: bold;
+}
+.resp-textarea{
+    width: 90%;
+    margin-left: 2%;
+    resize: none;
+}
+#btn-resp-enviar{
+    width: 200px;
+    margin-left: 2%;
+    margin-top: 20px;
+}
+#btn-atend-voltar{
+    width: 200px;
+    margin-right: 8%;
+    margin-top: 20px;
+}
+
+/***** EQUIPE ***/
+
+#equipe-select{
+    width: 50%;
+    margin-left: 25%;
+}
+#membro-selecionado{
+    width: 80%;
+}
+#editar-membro,#excluir-membro{
+    width: 20px;
+    margin: 10px 0 auto 15px;
+    text-align: center;
+}
+#btn-novo-membro{
+    width: 150px;
+    margin-top: 20px;
+}
+
+/***NOVO/EDITAR****/
+
+#login-key{
+    width: 50px;
+    margin: 0 50px;
+}
+.left-fieldset{
+    width: 40%;
+    float: left;
+    margin: 10px 0 20px 5%;
+    border: 1px #ccc solid;
+    padding-bottom: 20px;
+}
+.right-fieldset{
+    width: 40%;
+    float: right;
+    margin: 10px 5% 20px 0;
+    border: 1px #ccc solid;
+    padding-bottom: 20px;
+}
+.subtopico{
+    width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.large-input{
+    display: inline-block;
+    margin: auto 1.25%;
+    width: 77.5% !important;
+}
+.medium-input{
+    display: inline-block;
+    margin: auto 1.25%;
+    width: 57.5% !important;
+}
+.short-input{
+    display: inline-block;
+    margin: auto 1.25%;
+    width: 32.5% !important;
+}
+.shorter-input{
+    display: inline-block;
+    margin: auto 1.25%;
+    width: 17.5%;
+}
+#msg-erro{
+    display: inline-block;
+    margin: auto 1%;
+    width: 20%;
+    font-size: 14px;
+    color: red;
+}
+#permissao{
+    width: 40%;
+    margin-left: 5%;
+    margin-top: -5px;
+}
+#permissao .left{
+    margin-top: 3px;
+    margin-bottom: -3px;
+}
+#cancelar{
+width: 150px !important;
+    margin-right: 5%;
+    margin-left: 20px;
+}
+.uk-button{
+    width: 150px !important;
+}
+
+/**** RELATORIOS ****/
+
+.relatorio{
+    width: 90%;
+    border: 3px #ccc double;
+    height: 50px;
+    margin: 5px 5%;
+}
+.relatorio .img{
+    width: 40px;
+    line-height: 50px;
+}
+.relatorio .topico{
+    width: 380px;
+    line-height: 40px;
+}
+.relatorio .checkbox{
+    width: 130px;
+    line-height: 50px;
+}
+#data-fim,#data-inicio{
+    width: 250px;
+    line-height: 40px;
+    margin-left: 20px;
+}
+.relatorio .data{
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+}
+.relatorio .label{
+    margin-top: 5px;
+    width: 40px;
+}
+.relatorio .download{
+    width: 40px;
+    line-height: 50px;
+}
+

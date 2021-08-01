@@ -50,15 +50,12 @@
         <div class="atend-detalhes block">
             <div class="atend-desc block">${fn:toUpperCase(atendimentos.descricao)}</div>
             <div class="atend-tipo right">${fn:toUpperCase(atendimentos.tipoAtendimento)}</div>
-            <fmt:parseDate value="${atendimentos.data_resposta}" pattern="yyyy-MM-dd HH:mm:ss" var="date"/>
-            <fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${date}" var="dataAtual" />
-            <c:if test="${!empty date}">
-                <div class="resp block" >
-                    <h2 class="left subtitulo-resp">RESPOSTA</h2>
-                    <div class="resp-desc block">${atendimentos.resposta}</div>
-                    <div class="resp-fechamento right">Finalizado em <span class="resp-data">${dataAtual}</span></div>
-                </div>
-            </c:if>
+
+            <div class="resp block" >
+                <h2 class="left subtitulo-resp">RESPOSTA</h2>
+                <div class="resp-desc block">${atendimentos.resposta}</div>
+                <div class="resp-fechamento right">Finalizado em <span class="resp-data">${atendimentos.data_resposta}</span></div>
+            </div>
         </div>
 
         <a href="AtendimentoServlet?action=listar_atendimentos_gerente" id="btn-atend-voltar" class="right uk-button uk-button-default">VOLTAR</a>
