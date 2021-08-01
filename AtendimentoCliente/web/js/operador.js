@@ -158,9 +158,9 @@ function confirmIncl(e) {
             }).done(function( msg ) {
                 toastr["success"]("Sucesso ao executar operação!")
             });
-            swal.fire("Removido!", "O registro foi removido com sucesso.", "success");
+            swal.fire("Adicionado!", "O registro foi adicionado com sucesso.", "success");
         } else {
-            swal.fire("Cancelado", "Remoção cancelada pelo usuário", "error");
+            swal.fire("Cancelado", "Adição cancelada pelo usuário", "error");
         }
         });
     }
