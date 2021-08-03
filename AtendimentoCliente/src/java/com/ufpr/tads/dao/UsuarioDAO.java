@@ -185,4 +185,19 @@ public class UsuarioDAO {
         }   
     }
     
+    public boolean getValidacaoCPF(String CPFMask) {
+        boolean validacao = false;
+        try {
+            String sql = "SELECT * FROM usuarios WHERE cpf = ?";
+            PreparedStatement preparedStatement = connection
+                    .prepareStatement(sql);
+            preparedStatement.setString(1, CPFMask);
+            ResultSet rs = preparedStatement.executeQuery();
+            validacao = rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return validacao;
+    }
+    
 }

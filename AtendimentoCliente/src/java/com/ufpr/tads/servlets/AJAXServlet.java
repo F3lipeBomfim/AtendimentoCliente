@@ -94,6 +94,14 @@ public class AJAXServlet extends HttpServlet {
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);
                 break;
+            case "verificaCPF": 
+                UsuarioDAO = new UsuarioDAO();
+                String cpf = request.getParameter("cpf");
+                json = new Gson().toJson(UsuarioDAO.getValidacaoCPF(cpf));   
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json); 
+            break;
         }
     }
 

@@ -87,7 +87,7 @@
         <div class="short-input uk-margin">
             <label class="uk-form-label" for="cpf">CPF</label>
             <div class="nome uk-form-controls">
-                <input class="uk-input" id="cpf" name="cpf" type="text" value="${usuario.cpf}" placeholder="000.000.000-00" required>
+                <input class="uk-input" id="cpf" name="cpf" type="text"  onblur="verificaCPF(this.value)" value="${usuario.cpf}" placeholder="000.000.000-00" required>
             </div>
         </div>
         <div class="short-input uk-margin">

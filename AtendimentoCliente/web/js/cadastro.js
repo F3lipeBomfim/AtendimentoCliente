@@ -101,7 +101,27 @@ function validaSenha() {
     $('#msg-erro').html("");
     return true;
 }
-
+function verificaCPF(cpf){
+    var url = "AJAXServlet?action=verificaCPF";
+    $.ajax({
+        url : url, 
+        data : {
+            cpf : cpf,
+        }, 
+        dataType : 'json',
+        success : function(data) {
+            if(data == true){
+                toastr["error"]("CPF já cadastrado!")
+                $("#cpf").val("");
+                $("#cpf").focus();
+            }
+        },
+        error : function(request, textStatus, errorThrown) {
+            alert(request.status + ', Error: ' + request.statusText);
+        }
+    });
+    
+}
 function BuscarCep(cep){
     var cep_final = cep.replace("-", "");
         cep_final = cep_final.replace(".", "");   
